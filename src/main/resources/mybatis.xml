@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="AppInfo" type="com.quartz.monitor.entity.AppInfo" />
+		<typeAlias alias="AuthorInfo" type="com.quartz.monitor.entity.AuthorInfo" />
+		<typeAlias alias="CatalogInfo" type="com.quartz.monitor.entity.CatalogInfo" />
+		<typeAlias alias="ContentInfo" type="com.quartz.monitor.entity.ContentInfo" />
+		<typeAlias alias="RankInfo" type="com.quartz.monitor.entity.RankInfo" />
+		<typeAlias alias="RecommendInfo" type="com.quartz.monitor.entity.RecommendInfo" />
+		<typeAlias alias="VisitUser" type="com.quartz.monitor.entity.VisitUser" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/quartz/monitor/mapper/AppInfoMapper.xml" />
+		<mapper resource="com/quartz/monitor/mapper/AuthorInfoMapper.xml" />
+		<mapper resource="com/quartz/monitor/mapper/CatalogInfoMapper.xml" />
+		<mapper resource="com/quartz/monitor/mapper/ContentInfoMapper.xml" />
+		<mapper resource="com/quartz/monitor/mapper/RankInfoMapper.xml" />
+		<mapper resource="com/quartz/monitor/mapper/RecommendInfoMapper.xml" />
+		<mapper resource="com/quartz/monitor/mapper/VisitUserMapper.xml" />
+	</mappers>
+</configuration>	

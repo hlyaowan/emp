@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quartz.monitor.dao.AppInfoDAO">
+	<select id="AppInfoList" parameterType="AppInfo" resultType="java.util.HashMap">
+		SELECT `id` as id, `appId` as appId, `accessToken` as accessToken, `createTime` as createTime, `modifyTime` as modifyTime FROM `app_info`
+	</select>
+</mapper>
