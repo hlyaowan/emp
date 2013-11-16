@@ -21,7 +21,7 @@ public class ContentTest {
 	
 	@Test
 	public void getCatalogList(){
-		String channelID ="3"; 
+		String channelID ="1"; 
 		String catalogList = service.getCatalogList(AppinfoConstant.APPID, AppinfoConstant.ACCESSTOKEN, channelID);
 		System.out.print(catalogList);
 	}
