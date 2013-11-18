@@ -11,6 +11,7 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<context:component-scan base-package="com.quartz.monitor.timer" />
 	<bean id="SpringQtzJob" class="com.quartz.monitor.timer.QuartzClock" />
 
 	<bean id="SpringQtzJobMethodDay"
@@ -22,7 +23,7 @@
 			<value>executeDayJob</value>
 		</property>
 	</bean>
-	
+
 	<bean id="SpringQtzJobMethodMonth"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
@@ -32,13 +33,13 @@
 			<value>executeCnetJob</value>
 		</property>
 	</bean>
-	
+
 	<bean id="cronQuartzClockDay" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail">
 			<ref bean="SpringQtzJobMethodDay"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>1 * * * * ?</value>
+			<value>0/30 * * * * ?</value>
 		</property>
 	</bean>
 
@@ -47,10 +48,10 @@
 			<ref bean="SpringQtzJobMethodMonth"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>3 * * * * ?</value>
+			<value>0/1 * * * * ?</value>
 		</property>
 	</bean>
-	
+
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
