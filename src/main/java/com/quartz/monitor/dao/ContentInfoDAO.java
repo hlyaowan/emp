@@ -7,4 +7,6 @@ import com.quartz.monitor.entity.ContentInfo;
 
 public interface ContentInfoDAO {
     public List<ContentInfo> getContentInfoList(AppInfo condition);
+    
+    public ContentInfo getContentInfo(ContentInfo condition) ;
 }

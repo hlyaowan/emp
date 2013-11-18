@@ -16,4 +16,10 @@ public interface RecommendInfoDAO {
      * @return
      */
     public List<RecommendInfo> getRecommendInfoList(RecommendInfo condition) ;
+    /***
+     * 获取推荐实体
+     * @param condition
+     * @return
+     */
+    public RecommendInfo getRecommendInfo(RecommendInfo condition);
 }
