@@ -8,4 +8,5 @@ import com.quartz.monitor.entity.ContentInfo;
 
 public interface ContentInfoService {
     public List<ContentInfo> getContentInfoList(AppInfo condition);
+    public ContentInfo getContentInfo(ContentInfo condition) ;
 }

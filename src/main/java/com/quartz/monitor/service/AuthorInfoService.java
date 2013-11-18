@@ -11,4 +11,10 @@ public interface AuthorInfoService {
      * @return
      */
     public List<AuthorInfo> getAuthorInfoList(AuthorInfo condition);
+    /**
+     * 获取作者对象
+     * @param condition
+     * @return
+     */
+    public AuthorInfo getAuthorInfo(AuthorInfo condition) ;
 }

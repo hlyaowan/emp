@@ -11,4 +11,10 @@ public interface RankInfoService {
      * @return
      */
     public List<RankInfo> getRankInfoList(RankInfo condition) ;
+    /***
+     * 获取排行信息
+     * @param condition
+     * @return
+     */
+    public RankInfo getRankInfo(RankInfo condition);
 }
