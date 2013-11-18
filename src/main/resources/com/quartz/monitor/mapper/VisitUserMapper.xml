@@ -13,7 +13,7 @@
 	</insert>
 	
 	<update id="updateVisitUser" parameterType="VisitUser">
-		UPDATE `visit_user` `number` =`number`+1
+		UPDATE `visit_user` set `number` =`number`+1
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
 			<if test="mothodName != null">
 				mothodName = #{mothodName}
