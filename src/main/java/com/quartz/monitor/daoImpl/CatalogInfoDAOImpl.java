@@ -13,8 +13,20 @@ public class CatalogInfoDAOImpl extends MybatisTemplate implements CatalogInfoDA
 
     private static final String NAMESPACE = CatalogInfoDAO.class.getName().concat(".");
 
-
+    /**
+     * 获取分类列表
+     */
     public List<CatalogInfo> getCatalogInfoList(CatalogInfo condition) {
         return super.<CatalogInfo> getList(NAMESPACE.concat("CatalogInfoList"), condition);
+    }
+    
+    /***
+     * 获取分类实体
+     * @param condition
+     * @return
+     */
+    public CatalogInfo getCatalogInfo(CatalogInfo condition) {
+        return super.<CatalogInfo> get(NAMESPACE.concat("SelectCatalogInfoOne"), condition);
+
     }
 }

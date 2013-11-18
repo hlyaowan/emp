@@ -22,7 +22,7 @@ public class AppInfoDAOImpl extends MybatisTemplate implements AppInfoDAO {
     }
 
     public AppInfo getAppInfo(AppInfo condition) {
-        return super.<AppInfo> get(NAMESPACE.concat("AppInfo"), condition);
+        return super.<AppInfo> get(NAMESPACE.concat("AppInfoRandOne"), condition);
         
     }
 }

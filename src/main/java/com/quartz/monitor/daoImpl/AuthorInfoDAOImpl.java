@@ -8,6 +8,7 @@ import com.quartz.monitor.dao.AuthorInfoDAO;
 import com.quartz.monitor.entity.AuthorInfo;
 import com.quartz.monitor.mybatis.MybatisTemplate;
 
+
 /***
  * @author hlyaowan
  */
@@ -15,12 +16,24 @@ import com.quartz.monitor.mybatis.MybatisTemplate;
 public class AuthorInfoDAOImpl extends MybatisTemplate implements AuthorInfoDAO {
     private static final String NAMESPACE = AuthorInfoDAO.class.getName().concat(".");
 
+
     /***
      * 获取作者列表
+     * 
      * @param condition
      * @return
      */
     public List<AuthorInfo> getAuthorInfoList(AuthorInfo condition) {
         return super.<AuthorInfo> getList(NAMESPACE.concat("AuthorInfoList"), condition);
+    }
+
+    /**
+     * 获取作者对象
+     * @param condition
+     * @return
+     */
+    public AuthorInfo getAuthorInfo(AuthorInfo condition) {
+        return super.<AuthorInfo> get(NAMESPACE.concat("SelectAuthorInfoOne"), condition);
+
     }
 }

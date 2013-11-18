@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.quartz.monitor.dao.RankInfoDAO;
+import com.quartz.monitor.entity.ContentInfo;
 import com.quartz.monitor.entity.RankInfo;
 import com.quartz.monitor.mybatis.MybatisTemplate;
 
@@ -24,5 +25,15 @@ public class RankInfoDAOImpl extends MybatisTemplate implements RankInfoDAO {
      */
     public List<RankInfo> getRankInfoList(RankInfo condition) {
         return super.<RankInfo> getList(NAMESPACE.concat("RankInfoList"), condition);
+    }
+    
+    /***
+     * 获取排行信息
+     * @param condition
+     * @return
+     */
+    public RankInfo getRankInfo(RankInfo condition) {
+        return super.<RankInfo> get(NAMESPACE.concat("SelectRankInfoOne"), condition);
+
     }
 }

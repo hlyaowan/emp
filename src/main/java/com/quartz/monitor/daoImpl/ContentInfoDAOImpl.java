@@ -13,8 +13,15 @@ import com.quartz.monitor.mybatis.MybatisTemplate;
 @Repository
 public class ContentInfoDAOImpl extends MybatisTemplate implements ContentInfoDAO {
     private static final String NAMESPACE = ContentInfoDAO.class.getName().concat(".");
-    
+
+
     public List<ContentInfo> getContentInfoList(AppInfo condition) {
         return super.<ContentInfo> getList(NAMESPACE.concat("ContentInfoList"), condition);
+    }
+
+
+    public ContentInfo getContentInfo(ContentInfo condition) {
+        return super.<ContentInfo> get(NAMESPACE.concat("SelectContentInfoOne"), condition);
+
     }
 }
