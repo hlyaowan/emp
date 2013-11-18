@@ -26,4 +26,13 @@ public class RecommendInfoServiceImpl implements RecommendInfoService{
     public List<RecommendInfo> getRecommendInfoList(RecommendInfo condition) {
         return recommendInfoDAO.getRecommendInfoList(condition);
     }
+    
+    /***
+     * 获取推荐实体
+     * @param condition
+     * @return
+     */
+    public RecommendInfo getRecommendInfo(RecommendInfo condition){
+        return recommendInfoDAO.getRecommendInfo(condition);
+    }
 }

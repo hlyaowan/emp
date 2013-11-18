@@ -21,4 +21,8 @@ public class ContentInfoServiceImpl implements ContentInfoService {
     public List<ContentInfo> getContentInfoList(AppInfo condition) {
         return contentInfoDAO.getContentInfoList(condition);
     }
+    
+    public ContentInfo getContentInfo(ContentInfo condition) {
+        return contentInfoDAO.getContentInfo(condition);
+    }
 }

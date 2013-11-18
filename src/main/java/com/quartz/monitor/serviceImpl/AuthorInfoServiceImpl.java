@@ -25,4 +25,12 @@ public class AuthorInfoServiceImpl implements AuthorInfoService{
         
         return authorInfoDAO.getAuthorInfoList(condition);
     }
+    /**
+     * 获取作者对象
+     * @param condition
+     * @return
+     */
+    public AuthorInfo getAuthorInfo(AuthorInfo condition) {
+        return authorInfoDAO.getAuthorInfo(condition);
+    }
 }

@@ -18,4 +18,13 @@ public class CatalogInfoServiceImpl implements CatalogInfoService{
     public List<CatalogInfo> getCatalogInfoList(CatalogInfo condition) {
         return catalogDAO.getCatalogInfoList(condition);
     }
+    
+    /***
+     * 获取分类实体
+     * @param condition
+     * @return
+     */
+    public CatalogInfo getCatalogInfo(CatalogInfo condition){
+        return catalogDAO.getCatalogInfo(condition);
+    }
 }

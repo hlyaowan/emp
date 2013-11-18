@@ -27,4 +27,13 @@ public class RankInfoServiceImpl implements RankInfoService {
     public List<RankInfo> getRankInfoList(RankInfo condition) {
         return rankInfoDAO.getRankInfoList(condition);
     }
+    
+    /***
+     * 获取排行信息
+     * @param condition
+     * @return
+     */
+    public RankInfo getRankInfo(RankInfo condition){
+        return rankInfoDAO.getRankInfo(condition);
+    }
 }
