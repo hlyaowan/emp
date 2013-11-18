@@ -15,24 +15,24 @@ import com.quartz.monitor.service.VisitUserService;
 
 public class GetRankTimer {
     @Autowired
-    private static AppInfoService appInfoService;
+    private  AppInfoService appInfoService;
     @Autowired
-    private static VisitUserService visitUserService;
+    private  VisitUserService visitUserService;
     @Autowired
-    private static RankInfoService rankInfoService;
+    private  RankInfoService rankInfoService;
     //电信api接口
     private static RankTypeServiceImpl  rankService =new RankTypeServiceImpl();
     private static Logger log = Logger.getLogger(GetRankTimer.class);
 
 
-    public static void executeRankTask() {
+    public  void executeRankTask() {
         log.info("start GetRankTimer ...");
         AppInfo appInfo = appInfoService.getAppInfo(null);
         if(appInfo!=null){
             RankInfo rankInfo =rankInfoService.getRankInfo(null);
             if(rankInfo!=null){
                 String jsonString =rankService.getRank(appInfo.appId, appInfo.accessToken, rankInfo.contentType, rankInfo.rankType, rankInfo.rankTime, rankInfo.start, rankInfo.count);
-                if(StringUtils.isEmpty(jsonString)){
+                if(StringUtils.isNotEmpty(jsonString)){
                     VisitUser user =new  VisitUser();
                     user.mothodName="getRank";
                     visitUserService.updateVisitUserNumber(user);

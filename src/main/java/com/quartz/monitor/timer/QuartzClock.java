@@ -2,6 +2,9 @@ package com.quartz.monitor.timer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.quartz.monitor.service.AppInfoService;
 
 
 /**
@@ -13,32 +16,61 @@ public class QuartzClock  {
 
     private final static Logger LOG = LoggerFactory.getLogger(QuartzClock.class);
     
+    @Autowired
+    private GetAuthorInfoTimer getAuthorInfoTimer;
+    @Autowired
+    private GetCatalogContentTimer getCatalogContentTimer;
+    @Autowired
+    private GetCatalogListTimer getCatalogListTimer;
+    @Autowired
+    private  GetContentInfoTimer getContentInfoTimer;
+    @Autowired
+    private GetChapterListTimer getChapterListTimer;
+    @Autowired
+    private GetChannelsTimer getChannelsTimer;
+    @Autowired
+    private GetHotRecommendTimer getHotRecommendTimer;
+    @Autowired
+    private GetRankConfTimer getRankConfTimer;
+    @Autowired
+    private GetRankTimer getRankTimer;
+    @Autowired
+    private GetRankTypeTimer getRankTypeTimer;
+    @Autowired
+    private GetRecommendConfTimer getRecommendConfTimer;
+    @Autowired
+    private GetRecommendTimer getRecommendTimer;
+    @Autowired
+    private GetRecommendTypeTimer getRecommendTypeTimer;
+    @Autowired
+    private IdentifyCnetTimer identifyCnetTimer;
+    
     /**
      * 执行接口任务
      */
     protected void executeDayJob() {
         LOG.info("start job every day task");
         LOG.info("======================start task1====================");
-        GetAuthorInfoTimer.executeAuthorInfoTask();
-        GetCatalogContentTimer.executeCatalogContentTask();
-        GetCatalogListTimer.executeCatalogListTask();
-        GetChannelsTimer.executeChannelsTask();
+        getAuthorInfoTimer.executeAuthorInfoTask();
+        getCatalogContentTimer.executeCatalogContentTask();
+        getCatalogListTimer.executeCatalogListTask();
+        getChannelsTimer.executeChannelsTask();
         getChapterListTimer.executeChapterListTask();
-        GetContentInfoTimer.executeContentInfoTask();
-        GetHotRecommendTimer.executeGetHotRecommendTask();
-        GetRankConfTimer.executeRankConfTask();
-        GetRankTimer.executeRankTask();
-        GetRankTypeTimer.executeRankTypeTask();
-        GetRecommendConfTimer.executeRecommendConfTask();
-        GetRecommendTimer.executeGetRecommendTask();
-        GetRecommendTypeTimer.executeGetRecommendTask();
+        getContentInfoTimer.executeContentInfoTask();
+        getHotRecommendTimer.executeGetHotRecommendTask();
+        getRankConfTimer.executeRankConfTask();
+        getRankTimer.executeRankTask();
+        getRankTypeTimer.executeRankTypeTask();
+        getRecommendConfTimer.executeRecommendConfTask();
+        getRecommendTimer.executeGetRecommendTask();
+        getRecommendTypeTimer.executeGetRecommendTask();
     }
     
     /**
      * 执行C网判断任务
      */
     protected void executeCnetJob() {
-        IdentifyCnetTimer.executeIdentifyCnetTask();
+        identifyCnetTimer.executeIdentifyCnetTask();
     }
 
 }

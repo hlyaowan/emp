@@ -14,7 +14,7 @@ import com.quartz.monitor.service.ContentInfoService;
 import com.quartz.monitor.service.VisitUserService;
 
 @Service
-public class GetContentInfoTimer {
+public class GetChapterListTimer {
     @Autowired
     private  AppInfoService appInfoService;
     @Autowired
@@ -23,23 +23,23 @@ public class GetContentInfoTimer {
     private  ContentInfoService contentInfoService;
     //电信api接口
     private static ContentSeriveImpl contentService =new ContentSeriveImpl();
-    private static Logger log = Logger.getLogger(GetContentInfoTimer.class);
+    private static Logger log = Logger.getLogger(GetChapterListTimer.class);
 
 
-    public  void executeContentInfoTask() {
-        log.info("start GetContentInfoTimer ...");
+    public  void executeChapterListTask() {
+        log.info("start getChapterListTimer ...");
         AppInfo appInfo = appInfoService.getAppInfo(null);
         if(appInfo!=null){
             ContentInfo contentInfo =contentInfoService.getContentInfo(null);
             if(contentInfo!=null){
-                String jsonString =contentService.getContentInfo(appInfo.appId, appInfo.accessToken, contentInfo.contentId);
+                String jsonString =contentService.getChapterList(appInfo.appId, appInfo.accessToken, contentInfo.contentId, contentInfo.start, contentInfo.count);
                 if(StringUtils.isNotEmpty(jsonString)){
                     VisitUser user =new  VisitUser();
-                    user.mothodName="getContentInfo";
+                    user.mothodName="getChapterList";
                     visitUserService.updateVisitUserNumber(user);
                 }
             }
-           
+            
         }
     }
 }
