@@ -5,4 +5,8 @@
 	<select id="AuthorInfoList" parameterType="AuthorInfo" resultType="java.util.HashMap">
 		SELECT `id` as id, `authorId` as authorId , `start` as start, `count` as count, `createTime` as createTime  FROM `author_info`
 	</select>
+	
+	<select id="SelectAuthorInfoOne" parameterType="AuthorInfo" resultType="AuthorInfo">
+		SELECT `id` as id, `authorId` as authorId , `start` as start, `count` as count, `createTime` as createTime  FROM `author_info`  ORDER BY RAND() LIMIT 1
+	</select>
 </mapper>

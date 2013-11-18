@@ -5,4 +5,8 @@
 	<select id="CatalogInfoList" parameterType="CatalogInfo" resultType="java.util.HashMap">
 		SELECT `id` as id, `channelId` as channelId, `catalogId` as catalogId, `catalogName` as catalogName, `start` as start, `count` as count, `createTime` as createTime  FROM `catalog_info`
 	</select>
+	
+	<select id="SelectCatalogInfoOne" parameterType="CatalogInfo" resultType="CatalogInfo">
+		SELECT `id` as id, `channelId` as channelId, `catalogId` as catalogId, `catalogName` as catalogName, `start` as start, `count` as count, `createTime` as createTime  FROM `catalog_info` ORDER BY RAND() LIMIT 1
+	</select>
 </mapper>

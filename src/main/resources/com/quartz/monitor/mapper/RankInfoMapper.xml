@@ -5,4 +5,8 @@
 	<select id="RankInfoList" parameterType="RankInfo" resultType="java.util.HashMap">
 		SELECT `id` as id , `methodName` as methodName, `contentType` as contentType, `rankType` as rankType, `rankTime` as rankTime, `start` as start, `count` as count, `catalogId` as catalogId, `channelType` as channelType, `createTime` as createTime, `modifyTime` as modifyTime FROM `rank_info`
 	</select>
+	
+	<select id="SelectRankInfoOne" parameterType="RankInfo" resultType="RankInfo">
+		SELECT `id` as id , `methodName` as methodName, `contentType` as contentType, `rankType` as rankType, `rankTime` as rankTime, `start` as start, `count` as count, `catalogId` as catalogId, `channelType` as channelType, `createTime` as createTime, `modifyTime` as modifyTime FROM `rank_info` ORDER BY RAND() LIMIT 1
+	</select>
 </mapper>

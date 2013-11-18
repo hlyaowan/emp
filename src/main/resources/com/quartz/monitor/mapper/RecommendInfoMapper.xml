@@ -5,4 +5,8 @@
 	<select id="RecommendInfoList" parameterType="RecommendInfo" resultType="java.util.HashMap">
 		SELECT `id` as id, `methodName` as methodName, `recommendType` as recommendType, `contentType` as contentType, `catalogId` as catalogId, `channelType` as channelType, `timeType` as timeType, `recType` as recType, `start` as start, `count` as count, `createTime` as createTime, `modifyTime` as modifyTime FROM `recommend_info` 
 	</select>
+	
+	<select id="SelectRecommendInfoOne" parameterType="RecommendInfo" resultType="RecommendInfo">
+		SELECT `id` as id, `methodName` as methodName, `recommendType` as recommendType, `contentType` as contentType, `catalogId` as catalogId, `channelType` as channelType, `timeType` as timeType, `recType` as recType, `start` as start, `count` as count, `createTime` as createTime, `modifyTime` as modifyTime FROM `recommend_info`  ORDER BY RAND() LIMIT 1
+	</select>
 </mapper>

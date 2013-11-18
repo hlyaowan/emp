@@ -5,4 +5,8 @@
 	<select id="ContentInfoList" parameterType="ContentInfo" resultType="java.util.HashMap">
 		SELECT `id` as id, `contentId` as contentId, `contentName` as contentName,  `start` as start, `count` as count, `createTime` as createTime  FROM `content_info`
 	</select>
+	
+	<select id="SelectContentInfoOne" parameterType="ContentInfo" resultType="ContentInfo">
+		SELECT `id` as id, `contentId` as contentId, `contentName` as contentName,  `start` as start, `count` as count, `createTime` as createTime  FROM `content_info` ORDER BY RAND() LIMIT 1
+	</select>
 </mapper>
