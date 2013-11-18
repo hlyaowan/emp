@@ -3,6 +3,7 @@ package com.quartz.monitor.timer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.RankInfo;
@@ -12,7 +13,7 @@ import com.quartz.monitor.service.AppInfoService;
 import com.quartz.monitor.service.RankInfoService;
 import com.quartz.monitor.service.VisitUserService;
 
-
+@Service
 public class GetRankTimer {
     @Autowired
     private  AppInfoService appInfoService;

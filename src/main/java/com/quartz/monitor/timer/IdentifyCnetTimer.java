@@ -1,5 +1,7 @@
 package com.quartz.monitor.timer;
 
+import java.util.Random;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +32,35 @@ public class IdentifyCnetTimer {
         log.info("start IdentifyCnetTimer ...");
         AppInfo appInfo = appInfoService.getAppInfo(null);
         if(appInfo!=null){
-            Uagent uagent =uaInfoService.getUagentInfo(null);
-            if(uagent!=null){
-                String timestamp =DateUtil.getCurrentTimestamp();
-                String jsonString =cnetService.identifyCnet(appInfo.appId, appInfo.accessToken, uagent.getUainfo(), uagent.getIp(), timestamp);
-                if(StringUtils.isNotEmpty(jsonString)){
-                    VisitUser user =new  VisitUser();
-                    user.mothodName="identifyCnet";
-                    visitUserService.updateVisitUserNumber(user);
-                }
+            String timestamp =DateUtil.getCurrentTimestamp();
+            String jsonString =cnetService.identifyCnet(appInfo.appId, appInfo.accessToken, null, genIp(), timestamp);
+            if(StringUtils.isNotEmpty(jsonString)){
+                VisitUser user =new  VisitUser();
+                user.mothodName="identifyCnet";
+                visitUserService.updateVisitUserNumber(user);
             }
         }
+    }
+    
+    public String genIp(){
+        Random random =new  Random();
+        int value =random.nextInt(255)+1;
+        int value2 =random.nextInt(255)+1;
+        int value3 =random.nextInt(255)+1;
+        int value4 =random.nextInt(255)+1;
+        StringBuffer sBuffer =new  StringBuffer();
+        sBuffer.append(value);
+        sBuffer.append(".");
+        sBuffer.append(value2);
+        sBuffer.append(".");
+        sBuffer.append(value3);
+        sBuffer.append(".");
+        sBuffer.append(value4);
+        return sBuffer.toString();
+    }
+    
+    public static void main(String[] args) {
+        IdentifyCnetTimer identifyCnetTimer=new IdentifyCnetTimer();
+        System.err.println(identifyCnetTimer.genIp());
     }
 }

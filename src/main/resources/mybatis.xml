@@ -9,6 +9,7 @@
 		<typeAlias alias="RankInfo" type="com.quartz.monitor.entity.RankInfo" />
 		<typeAlias alias="RecommendInfo" type="com.quartz.monitor.entity.RecommendInfo" />
 		<typeAlias alias="VisitUser" type="com.quartz.monitor.entity.VisitUser" />
+		<typeAlias alias="Uagent" type="com.quartz.monitor.entity.Uagent" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/quartz/monitor/mapper/AppInfoMapper.xml" />
@@ -18,5 +19,6 @@
 		<mapper resource="com/quartz/monitor/mapper/RankInfoMapper.xml" />
 		<mapper resource="com/quartz/monitor/mapper/RecommendInfoMapper.xml" />
 		<mapper resource="com/quartz/monitor/mapper/VisitUserMapper.xml" />
+		<mapper resource="com/quartz/monitor/mapper/UagentMapper.xml" />
 	</mappers>
 </configuration>	
