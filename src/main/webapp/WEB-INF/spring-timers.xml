@@ -20,7 +20,7 @@
 			<ref bean="SpringQtzJob" />
 		</property>
 		<property name="targetMethod">
-			<value>executeDayJob</value>
+			<value>executeCommonJob</value>
 		</property>
 	</bean>
 
@@ -39,7 +39,7 @@
 			<ref bean="SpringQtzJobMethodDay"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/30 * * * * ?</value>
+			<value>0/3 * * * * ?</value>
 		</property>
 	</bean>
 
@@ -48,7 +48,7 @@
 			<ref bean="SpringQtzJobMethodMonth"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/1 * * * * ?</value>
+			<value>0/3 * * * * ?</value>
 		</property>
 	</bean>
 
