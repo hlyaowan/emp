@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.quartz.monitor.service.AppInfoService;
-
 
 /**
  * 计数定时任务
@@ -30,14 +28,14 @@ public class QuartzClock  {
     private GetChannelsTimer getChannelsTimer;
     @Autowired
     private GetHotRecommendTimer getHotRecommendTimer;
-    @Autowired
-    private GetRankConfTimer getRankConfTimer;
+//    @Autowired
+//    private GetRankConfTimer getRankConfTimer;
     @Autowired
     private GetRankTimer getRankTimer;
     @Autowired
     private GetRankTypeTimer getRankTypeTimer;
-    @Autowired
-    private GetRecommendConfTimer getRecommendConfTimer;
+//    @Autowired
+//    private GetRecommendConfTimer getRecommendConfTimer;
     @Autowired
     private GetRecommendTimer getRecommendTimer;
     @Autowired
@@ -48,7 +46,7 @@ public class QuartzClock  {
     /**
      * 执行接口任务
      */
-    protected void executeDayJob() {
+    protected void executeCommonJob() {
         LOG.info("start job every day task");
         LOG.info("======================start task1====================");
         getAuthorInfoTimer.executeAuthorInfoTask();
@@ -58,12 +56,12 @@ public class QuartzClock  {
         getChapterListTimer.executeChapterListTask();
         getContentInfoTimer.executeContentInfoTask();
         getHotRecommendTimer.executeGetHotRecommendTask();
-        getRankConfTimer.executeRankConfTask();
+//        getRankConfTimer.executeRankConfTask();
         getRankTimer.executeRankTask();
         getRankTypeTimer.executeRankTypeTask();
-        getRecommendConfTimer.executeRecommendConfTask();
+//        getRecommendConfTimer.executeRecommendConfTask();
         getRecommendTimer.executeGetRecommendTask();
-        getRecommendTypeTimer.executeGetRecommendTask();
+        getRecommendTypeTimer.executeGetRecommendTypeTask();
     }
     
     /**
