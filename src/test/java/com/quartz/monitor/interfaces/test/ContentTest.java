@@ -21,15 +21,15 @@ public class ContentTest {
 	
 	@Test
 	public void getCatalogList(){
-		String channelID ="1"; 
+		String channelID ="4"; 
 		String catalogList = service.getCatalogList(AppinfoConstant.APPID, AppinfoConstant.ACCESSTOKEN, channelID);
 		System.out.print(catalogList);
 	}
 	
 	@Test
 	public void getCatalogContent(){
-		String catalogID="1000002630518";
-		int start =1;
+		String catalogID="1000002629495";
+		int start =2;
 		int count =10;
 		String catalogcontent = service.getCatalogContent(AppinfoConstant.APPID, AppinfoConstant.ACCESSTOKEN, catalogID, start, count);
 		System.out.print(catalogcontent);
