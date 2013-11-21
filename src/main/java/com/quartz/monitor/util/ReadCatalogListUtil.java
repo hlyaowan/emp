@@ -21,7 +21,8 @@ public class ReadCatalogListUtil {
         FileInputStream is = null;
         try {
             List<CatalogInfo> list = Collections.EMPTY_LIST;
-            File file = new File(this.getClass().getResource("/").getPath() + "WEB-INF\\classes\\conf\\cataloginfo.xml");
+//            File file = new File(this.getClass().getResource("/").getPath() + "WEB-INF\\classes\\conf\\cataloginfo.xml");
+            File file = new File(ReadAppInfoUtil.class.getClassLoader().getResource("conf/cataloginfo.xml").toURI());
             is = new FileInputStream(file);
             SAXBuilder sb = new SAXBuilder();
             Document doclisten = sb.build(is);
