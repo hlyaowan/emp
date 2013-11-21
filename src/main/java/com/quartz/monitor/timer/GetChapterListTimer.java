@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.ContentInfo;
 import com.quartz.monitor.entity.VisitUser;
@@ -58,7 +59,7 @@ public class GetChapterListTimer {
      * 启动线程章节列表;5.8W 一天86400s，每s 0.8次
      */
     public void executeChapterListTask() {
-        ChapterThread[] threads = new ChapterThread[2];
+        ChapterThread[] threads = new ChapterThread[ThreadConstant.CHAPTERLIST_THREAD];
         for (ChapterThread thread : threads) {
             thread = new ChapterThread();
             thread.start();

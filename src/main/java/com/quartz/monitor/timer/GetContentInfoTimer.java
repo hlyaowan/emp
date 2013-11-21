@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.ContentInfo;
 import com.quartz.monitor.entity.VisitUser;
@@ -59,7 +60,7 @@ public class GetContentInfoTimer {
      * 启动线程内容大概5.8w每天，一天86400s，每s执行约1次
      */
     public void executeContentInfoTask() {
-        ContentThread[] threads = new ContentThread[3];
+        ContentThread[] threads = new ContentThread[ThreadConstant.CONTENTINFO_THREAD];
         for (ContentThread thread : threads) {
             thread = new ContentThread();
             thread.start();

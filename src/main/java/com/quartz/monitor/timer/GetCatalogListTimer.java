@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.ContentSeriveImpl;
@@ -45,7 +46,7 @@ public class GetCatalogListTimer {
      * 启动线程 //分栏每天14.2W量，一天86400S，每s大约1.5次
      */
     public  void executeCatalogListTask(){
-        CatalogListThread[] threads = new CatalogListThread[5];
+        CatalogListThread[] threads = new CatalogListThread[ThreadConstant.CATALOGLIST_THREAD];
         for(CatalogListThread thread : threads){
             thread = new CatalogListThread();
             thread.start();

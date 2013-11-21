@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.ContentSeriveImpl;
@@ -45,7 +46,7 @@ public class GetChannelsTimer {
      * 启动线程//频道每天17.2W量，一天86400S，每s大约2次
      */
     public void executeChannelsTask() {
-        ChannelsThread[] threads = new ChannelsThread[6];
+        ChannelsThread[] threads = new ChannelsThread[ThreadConstant.CHANNELS_THREAD];
         for (ChannelsThread thread : threads) {
             thread = new ChannelsThread();
             thread.start();

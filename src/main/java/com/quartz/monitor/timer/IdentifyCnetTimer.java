@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.CnetServiceImpl;
@@ -49,7 +50,7 @@ public class IdentifyCnetTimer {
      * 启动线程 74.3W  每天86400S。每s 9次
      */
     public void executeIdentifyCnetTask() {
-        IdentifyCnetThread[] threads = new IdentifyCnetThread[9];
+        IdentifyCnetThread[] threads = new IdentifyCnetThread[ThreadConstant.IDENTIFYCNET_THREAD];
         for (IdentifyCnetThread thread : threads) {
             thread = new IdentifyCnetThread();
             thread.start();

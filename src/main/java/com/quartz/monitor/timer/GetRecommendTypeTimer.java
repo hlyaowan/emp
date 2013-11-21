@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.RecommendServiceImpl;
@@ -49,7 +50,7 @@ public class GetRecommendTypeTimer {
      * 启动线程每天8.64/3约2.2w       一天约8.6 w秒 ，每s约0.25次
      */
     public void executeGetRecommendTypeTask() {
-        RecommendThread[] threads = new RecommendThread[1];
+        RecommendThread[] threads = new RecommendThread[ThreadConstant.RECOMMENDTYPE_THREAD];
         for (RecommendThread thread : threads) {
             thread = new RecommendThread();
             thread.start();

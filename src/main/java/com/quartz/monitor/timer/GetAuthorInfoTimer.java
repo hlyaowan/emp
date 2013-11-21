@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.AuthorInfo;
 import com.quartz.monitor.entity.VisitUser;
@@ -57,7 +58,7 @@ public class GetAuthorInfoTimer {
       */
 
     public void executeAuthorInfoTask() {
-        MyThread[] threads = new MyThread[1];
+        MyThread[] threads = new MyThread[ThreadConstant.AUTHORINFO_THREAD];
         for (MyThread thread : threads) {
             thread = new MyThread();
             thread.start();

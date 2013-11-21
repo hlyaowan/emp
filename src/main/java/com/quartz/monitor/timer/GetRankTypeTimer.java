@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.RankTypeServiceImpl;
@@ -44,7 +45,7 @@ public class GetRankTypeTimer {
      * 启动线程启动线程8.6W /2=4.3W  每天8.64w秒 ，每s约0.5次
      */
     public void executeRankTypeTask() {
-        RankTypeThread[] threads = new RankTypeThread[2];
+        RankTypeThread[] threads = new RankTypeThread[ThreadConstant.RANK_TYPE_THREAD];
         for (RankTypeThread thread : threads) {
             thread = new RankTypeThread();
             thread.start();
