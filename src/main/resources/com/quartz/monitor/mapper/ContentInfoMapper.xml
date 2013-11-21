@@ -3,10 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.quartz.monitor.dao.ContentInfoDAO">
 	<select id="ContentInfoList" parameterType="ContentInfo" resultType="java.util.HashMap">
-		SELECT `id` as id, `contentId` as contentId, `contentName` as contentName,  `start` as start, `count` as count, `createTime` as createTime  FROM `content_info`
+		SELECT `id` as id, `contentId` as contentId, `contentName` as contentName,  `start` as start, `count` as count, `createTime` as createTime  FROM `content_info` LIMIT 100
 	</select>
 	
 	<select id="SelectContentInfoOne" parameterType="ContentInfo" resultType="ContentInfo">
-		SELECT `id` as id, `contentId` as contentId, `contentName` as contentName,  `start` as start, `count` as count, `createTime` as createTime  FROM `content_info` ORDER BY RAND() LIMIT 1
+		SELECT `id` as id, `contentId` as contentId, `contentName` as contentName,  `start` as start, `count` as count, `createTime` as createTime  FROM `content_info`
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</trim>
 	</select>
 </mapper>
