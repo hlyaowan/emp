@@ -200,7 +200,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>quartz-monitor</finalName>
+		<finalName>emp</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
