@@ -65,7 +65,10 @@ public class Tools
       }
       return null;
    }
-   
+   public static int getRandom(int begin,int end){
+       double random = Math.random();
+       return (int)(random*(end - begin)+begin);
+    }
    public static int getPageSize(int zong,int pageSize){
 	   int pageCount=zong/pageSize;
 		if(zong%pageSize!=0){
