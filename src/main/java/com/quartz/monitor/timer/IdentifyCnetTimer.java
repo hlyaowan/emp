@@ -46,10 +46,10 @@ public class IdentifyCnetTimer {
 
 
     /***
-     * 启动线程 135.9W 每天86400S。每s 16次
+     * 启动线程 74.3W  每天86400S。每s 16次
      */
     public void executeIdentifyCnetTask() {
-        IdentifyCnetThread[] threads = new IdentifyCnetThread[16];
+        IdentifyCnetThread[] threads = new IdentifyCnetThread[9];
         for (IdentifyCnetThread thread : threads) {
             thread = new IdentifyCnetThread();
             thread.start();
