@@ -22,8 +22,8 @@ public class HttpRequest {
             HttpGet httpGet = new HttpGet(url);
 //            httpclient.getParams().setIntParameter("http.socket.timeout", 2000);//设置请求服务器超时时间   
 //            httpclient.getParams().setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.BROWSER_COMPATIBILITY); //不起作用
-            HttpConnectionParams.setConnectionTimeout(params, 3000);  
-            HttpConnectionParams.setSoTimeout(params, 5000); 
+            HttpConnectionParams.setConnectionTimeout(params, 2000);  
+            HttpConnectionParams.setSoTimeout(params, 1000); 
             httpGet.setHeader("app_id", appId);
             httpGet.setHeader("access_token", accessToken);
             httpGet.setHeader("format", "json");
@@ -43,7 +43,7 @@ public class HttpRequest {
             }
             str = new String(b, 0, total, "UTF-8");
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         httpclient.getConnectionManager().shutdown();
        return str;
