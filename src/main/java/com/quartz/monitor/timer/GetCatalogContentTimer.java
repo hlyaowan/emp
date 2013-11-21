@@ -64,7 +64,10 @@ public class GetCatalogContentTimer {
     
     class CatalogThread extends Thread{
         public void run(){
+            long start =System.currentTimeMillis();
             executeCatalogContent();
+            long end =System.currentTimeMillis();
+            log.info("cost time:"+(end-start));
             try {
                 Random random =new Random();
                 int value =random.nextInt(4000)+1;
