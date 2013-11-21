@@ -57,7 +57,7 @@ public class GetAuthorInfoTimer {
       */
 
     public void executeAuthorInfoTask() {
-        MyThread[] threads = new MyThread[2];
+        MyThread[] threads = new MyThread[1];
         for (MyThread thread : threads) {
             thread = new MyThread();
             thread.start();

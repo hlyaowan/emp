@@ -52,10 +52,10 @@ public class GetCatalogContentTimer {
         }
     }
     /***
-     * 启动线程内容大概5w每天，一天86400s，每s执行约0.6次
+     * 启动线程内容大概10w每天，一天86400s，每s执行约1.2次
      */
     public  void executeCatalogContentTask(){
-        CatalogThread[] threads = new CatalogThread[2];
+        CatalogThread[] threads = new CatalogThread[4];
         for(CatalogThread thread : threads){
             thread = new CatalogThread();
             thread.start();
