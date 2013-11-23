@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
+import com.quartz.monitor.entity.Uagent;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.CnetServiceImpl;
 import com.quartz.monitor.service.AppInfoService;
@@ -37,11 +38,18 @@ public class IdentifyCnetTimer {
         List<AppInfo> list = util.readAppInfoFile();
         AppInfo appInfo = util.getAppInfo(list);
         if (appInfo != null) {
-            String timestamp = DateUtil.getCurrentTimestamp();
-            cnetService.identifyCnet(appInfo.appId, appInfo.accessToken, null, genIp(), timestamp);
-            VisitUser user = new VisitUser();
-            user.mothodName = "identifyCnet";
-            visitUserService.updateVisitUserNumber(user);
+            Random random =new  Random();
+            int randid= random.nextInt(4800)+1;
+            Uagent uagent =new Uagent();
+            uagent.setId(randid);
+            uagent= uaInfoService.getUagentInfo(uagent);
+            if(uagent!=null){
+                String timestamp = DateUtil.getCurrentTimestamp();
+                cnetService.identifyCnet(appInfo.appId, appInfo.accessToken, uagent.getUainfo(), genIp(), timestamp);
+                VisitUser user = new VisitUser();
+                user.mothodName = "identifyCnet";
+                visitUserService.updateVisitUserNumber(user);
+            }
         }
     }
 

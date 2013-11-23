@@ -2,12 +2,20 @@
 <response>
 	<appList>
 		<appInfo>
-			<appid>214770620000030628</appid>
-			<accessToken>020ee759c474e29439233ed11cdf175a1384334447046</accessToken>
+			<appid>349057190000033794</appid><!-- chenkedi -->
+			<accessToken>8c2e2adb0f3efb34ea024326d7e149611384335378417</accessToken>
 		</appInfo>
 		<appInfo>
-			<appid>145625330000033843</appid>
+			<appid>145625330000033843</appid><!-- huanglei -->
 			<accessToken>c37cf61ddcd3eb8a2e6130cf4d02780f1384565358046</accessToken>
+		</appInfo>
+		<appInfo>
+			<appid>214119820000033855</appid><!-- 谈春周 -->
+			<accessToken>a1acef183b900a0c1d34a0eb25a801a41385097127033</accessToken>
+		</appInfo>
+		<appInfo>
+			<appid>132021770000033854</appid><!-- 朱伟 -->
+			<accessToken>3943d546bfbc7d7691d1af43f59d4b7e1385173586011</accessToken>
 		</appInfo>
 	</appList>
 </response>

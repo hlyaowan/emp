@@ -7,7 +7,12 @@
 	</select>
 	
 	<select id="UagentOne" parameterType="Uagent" resultType="Uagent">
-		SELECT `id` as id, `uainfo` as uainfo, `ip` as ip, `extend` as extend, `createTime` as createTime  FROM `ua_info` ORDER BY RAND() LIMIT 1
+		SELECT `id` as id, `uainfo` as uainfo, `ip` as ip, `extend` as extend, `createTime` as createTime  FROM `ua_info`
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</trim>
 	</select>
 
 </mapper>
