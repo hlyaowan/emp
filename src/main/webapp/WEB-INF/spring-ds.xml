@@ -14,10 +14,10 @@
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close" lazy-init="true">
 		<property name="url">
-			<value><![CDATA[jdbc:mysql://localhost:3306/emp]]></value>
+			<value><![CDATA[jdbc:mysql://115.29.176.91:3306/emp]]></value>
 		</property>
-		<property name="username" value="root" />
-		<property name="password" value="875154" />
+		<property name="username" value="huanglei" />
+		<property name="password" value="huanglei" />
 		<property name="filters" value="stat" />
 		<property name="maxActive" value="5" />
 		<property name="initialSize" value="1" />
