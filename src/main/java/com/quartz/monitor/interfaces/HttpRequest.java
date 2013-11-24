@@ -13,12 +13,13 @@ public class HttpRequest {
     private static SyncHttpInvokeClient client = null;
     public static String sendGetRequest(String url,String appId,String accessToken) {
         client = new SyncHttpInvokeClient();
-        HttpInvokeRequest request = new HttpInvokeRequest(url, "post");
-        HttpInvokeResponse response = client.invoke(request);
-        request.setConnTimeout(3000);
-        request.setSoTimeout(2000);
+        HttpInvokeRequest request = new HttpInvokeRequest(url, "get");
+        request.setConnTimeout(2000);
+        request.setSoTimeout(1000);
         request.addHeader("app_id", appId);
         request.addHeader("access_token", accessToken);
+        HttpInvokeResponse response = client.invoke(request);
+        log.info("response size:"+response.getStatusCode());
         return response.getContent();
     }
     
