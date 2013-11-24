@@ -71,7 +71,7 @@ public class GetChapterListTimer {
             executeChapterList();
             try {
                 Random random =new Random();
-                int value =random.nextInt(4000)+1;
+                int value =random.nextInt(ThreadConstant.SLEEPTIME)+1;
                 Thread.sleep(value);
             }
             catch (InterruptedException e) {

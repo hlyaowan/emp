@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.RecommendInfo;
 import com.quartz.monitor.entity.VisitUser;
@@ -65,7 +66,7 @@ public class GetRecommendConfTimer {
             executeRecommendConf();
             try {
                 Random random =new Random();
-                int value =random.nextInt(4000)+1;
+                int value =random.nextInt(ThreadConstant.SLEEPTIME)+1;
                 Thread.sleep(value);
             }
             catch (InterruptedException e) {
