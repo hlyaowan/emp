@@ -14,8 +14,8 @@ public class HttpRequest {
     public static String sendGetRequest(String url,String appId,String accessToken) {
         client = new SyncHttpInvokeClient();
         HttpInvokeRequest request = new HttpInvokeRequest(url, "get");
-        request.setConnTimeout(2000);
-        request.setSoTimeout(1000);
+        request.setConnTimeout(3000);
+        request.setSoTimeout(2000);
         request.addHeader("app_id", appId);
         request.addHeader("access_token", accessToken);
         HttpInvokeResponse response = client.invoke(request);
