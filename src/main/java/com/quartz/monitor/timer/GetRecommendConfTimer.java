@@ -7,11 +7,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import redis.clients.jedis.ShardedJedis;
+
+import com.quartz.monitor.common.RedisConstant;
 import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.RecommendInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.RecommendServiceImpl;
+import com.quartz.monitor.jedis.JedisClient;
 import com.quartz.monitor.service.AppInfoService;
 import com.quartz.monitor.service.RecommendInfoService;
 import com.quartz.monitor.service.VisitUserService;
@@ -29,7 +33,8 @@ public class GetRecommendConfTimer {
     // 电信api接口
     private static RecommendServiceImpl recommendService = new RecommendServiceImpl();
     private static Logger log = Logger.getLogger(GetRecommendConfTimer.class);
-
+    @Autowired
+    private JedisClient jedisClient;
 
     public void executeRecommendConf() {
         log.info("start GetRecommendConfTimer ...");

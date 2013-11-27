@@ -7,13 +7,19 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import redis.clients.jedis.ShardedJedis;
+
+import com.quartz.monitor.common.RedisConstant;
 import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
+import com.quartz.monitor.entity.ContentInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.RecommendServiceImpl;
+import com.quartz.monitor.jedis.JedisClient;
 import com.quartz.monitor.service.AppInfoService;
 import com.quartz.monitor.service.VisitUserService;
 import com.quartz.monitor.util.ReadAppInfoUtil;
+import com.quartz.monitor.util.Tools;
 
 
 @Service
@@ -26,19 +32,35 @@ public class GetHotRecommendTimer {
     // 电信api接口
     private static RecommendServiceImpl recommendService = new RecommendServiceImpl();
     private static Logger log = Logger.getLogger(GetHotRecommendTimer.class);
-
+    @Autowired
+    private JedisClient jedisClient;
 
     public void executeGetHotRecommend() {
         log.info("start GetHotRecommendTimer ...");
 
-        ReadAppInfoUtil util = new ReadAppInfoUtil();
-        List<AppInfo> list = util.readAppInfoFile();
-        AppInfo appInfo = util.getAppInfo(list);
-        if (appInfo != null) {
-            recommendService.getHotRecommend(appInfo.appId, appInfo.accessToken);
-            VisitUser user = new VisitUser();
-            user.mothodName = "getHotRecommend";
-            visitUserService.updateVisitUserNumber(user);
+       
+        
+        ShardedJedis shardedJedis = jedisClient.getShardedJedis();
+        try {
+            ReadAppInfoUtil util = new ReadAppInfoUtil();
+            List<AppInfo> list = util.readAppInfoFile();
+            AppInfo appInfo = util.getAppInfo(list);
+            if (appInfo != null) {
+                recommendService.getHotRecommend(appInfo.appId, appInfo.accessToken);
+                VisitUser user = new VisitUser();
+                user.mothodName = "getHotRecommend";
+                visitUserService.updateVisitUserNumber(user);
+                //jedis计数器增加
+                jedisClient.incrTimeCount(shardedJedis, RedisConstant.HOTRECOMMEND_KEY);
+            }
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
+        finally {
+            if (shardedJedis != null) {
+                jedisClient.repleaseClient(shardedJedis);
+            }
         }
     }
 

@@ -7,11 +7,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import redis.clients.jedis.ShardedJedis;
+
+import com.quartz.monitor.common.RedisConstant;
 import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.RankInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.RankTypeServiceImpl;
+import com.quartz.monitor.jedis.JedisClient;
 import com.quartz.monitor.service.AppInfoService;
 import com.quartz.monitor.service.RankInfoService;
 import com.quartz.monitor.service.VisitUserService;
@@ -29,21 +33,37 @@ public class GetRankTimer {
     // 电信api接口
     private static RankTypeServiceImpl rankService = new RankTypeServiceImpl();
     private static Logger log = Logger.getLogger(GetRankTimer.class);
-
+    @Autowired
+    private JedisClient jedisClient;
 
     public void executeRank() {
         log.info("start GetRankTimer ...");
-        ReadAppInfoUtil util = new ReadAppInfoUtil();
-        List<AppInfo> list = util.readAppInfoFile();
-        AppInfo appInfo = util.getAppInfo(list);
-        if (appInfo != null) {
-            RankInfo rankInfo = rankInfoService.getRankInfo(null);
-            if (rankInfo != null) {
-                rankService.getRank(appInfo.appId, appInfo.accessToken, rankInfo.contentType, rankInfo.rankType,
-                    rankInfo.rankTime, rankInfo.start, rankInfo.count);
-                VisitUser user = new VisitUser();
-                user.mothodName = "getRank";
-                visitUserService.updateVisitUserNumber(user);
+        
+        
+        ShardedJedis shardedJedis = jedisClient.getShardedJedis();
+        try {
+            ReadAppInfoUtil util = new ReadAppInfoUtil();
+            List<AppInfo> list = util.readAppInfoFile();
+            AppInfo appInfo = util.getAppInfo(list);
+            if (appInfo != null) {
+                RankInfo rankInfo = rankInfoService.getRankInfo(null);
+                if (rankInfo != null) {
+                    rankService.getRank(appInfo.appId, appInfo.accessToken, rankInfo.contentType, rankInfo.rankType,
+                        rankInfo.rankTime, rankInfo.start, rankInfo.count);
+                    VisitUser user = new VisitUser();
+                    user.mothodName = "getRank";
+                    visitUserService.updateVisitUserNumber(user);
+                    //jedis计数器增加
+                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.RANK_KEY);
+                }
+            }
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
+        finally {
+            if (shardedJedis != null) {
+                jedisClient.repleaseClient(shardedJedis);
             }
         }
     }

@@ -7,10 +7,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import redis.clients.jedis.ShardedJedis;
+
+import com.quartz.monitor.common.RedisConstant;
 import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
+import com.quartz.monitor.entity.RankInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.RankTypeServiceImpl;
+import com.quartz.monitor.jedis.JedisClient;
 import com.quartz.monitor.service.AppInfoService;
 import com.quartz.monitor.service.VisitUserService;
 import com.quartz.monitor.util.ReadAppInfoUtil;
@@ -25,18 +30,34 @@ public class GetRankTypeTimer {
     // 电信api接口
     private static RankTypeServiceImpl rankService = new RankTypeServiceImpl();
     private static Logger log = Logger.getLogger(GetRankTypeTimer.class);
-
+    @Autowired
+    private JedisClient jedisClient;
 
     public void executeRankType() {
         log.info("start GetRankTypeTimer ...");
-        ReadAppInfoUtil util = new ReadAppInfoUtil();
-        List<AppInfo> list = util.readAppInfoFile();
-        AppInfo appInfo = util.getAppInfo(list);
-        if (appInfo != null) {
-            rankService.getRankType(appInfo.appId, appInfo.accessToken);
-            VisitUser user = new VisitUser();
-            user.mothodName = "getRankType";
-            visitUserService.updateVisitUserNumber(user);
+       
+        
+        ShardedJedis shardedJedis = jedisClient.getShardedJedis();
+        try {
+            ReadAppInfoUtil util = new ReadAppInfoUtil();
+            List<AppInfo> list = util.readAppInfoFile();
+            AppInfo appInfo = util.getAppInfo(list);
+            if (appInfo != null) {
+                rankService.getRankType(appInfo.appId, appInfo.accessToken);
+                VisitUser user = new VisitUser();
+                user.mothodName = "getRankType";
+                visitUserService.updateVisitUserNumber(user);
+                //jedis计数器增加
+                jedisClient.incrTimeCount(shardedJedis, RedisConstant.RANK_TYPE_KEY);
+            }
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
+        finally {
+            if (shardedJedis != null) {
+                jedisClient.repleaseClient(shardedJedis);
+            }
         }
     }
 

@@ -12,6 +12,7 @@ import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.RankInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.RankTypeServiceImpl;
+import com.quartz.monitor.jedis.JedisClient;
 import com.quartz.monitor.service.AppInfoService;
 import com.quartz.monitor.service.RankInfoService;
 import com.quartz.monitor.service.VisitUserService;
@@ -29,7 +30,8 @@ public class GetRankConfTimer {
     // 电信api接口
     private static RankTypeServiceImpl rankService = new RankTypeServiceImpl();
     private static Logger log = Logger.getLogger(GetRankConfTimer.class);
-
+    @Autowired
+    private JedisClient jedisClient;
 
     public void executeRankConf() {
         log.info("start GetRankConfTimer ...");

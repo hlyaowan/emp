@@ -7,11 +7,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import redis.clients.jedis.ShardedJedis;
+
+import com.quartz.monitor.common.RedisConstant;
 import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.Uagent;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.CnetServiceImpl;
+import com.quartz.monitor.jedis.JedisClient;
 import com.quartz.monitor.service.AppInfoService;
 import com.quartz.monitor.service.UaInfoService;
 import com.quartz.monitor.service.VisitUserService;
@@ -30,25 +34,39 @@ public class IdentifyCnetTimer {
     // 电信api接口
     private static CnetServiceImpl cnetService = new CnetServiceImpl();
     private static Logger log = Logger.getLogger(IdentifyCnetTimer.class);
-
+    @Autowired
+    private JedisClient jedisClient;
 
     public void executeIdentifyCnet() {
         log.info("start IdentifyCnetTimer ...");
-        ReadAppInfoUtil util = new ReadAppInfoUtil();
-        List<AppInfo> list = util.readAppInfoFile();
-        AppInfo appInfo = util.getAppInfo(list);
-        if (appInfo != null) {
-            Random random =new  Random();
-            int randid= random.nextInt(4800)+1;
-            Uagent uagent =new Uagent();
-            uagent.setId(randid);
-            uagent= uaInfoService.getUagentInfo(uagent);
-            if(uagent!=null){
-                String timestamp = DateUtil.getCurrentTimestamp();
-                cnetService.identifyCnet(appInfo.appId, appInfo.accessToken, uagent.getUainfo(), genIp(), timestamp);
-                VisitUser user = new VisitUser();
-                user.mothodName = "identifyCnet";
-                visitUserService.updateVisitUserNumber(user);
+        ShardedJedis shardedJedis = jedisClient.getShardedJedis();
+        try {
+            ReadAppInfoUtil util = new ReadAppInfoUtil();
+            List<AppInfo> list = util.readAppInfoFile();
+            AppInfo appInfo = util.getAppInfo(list);
+            if (appInfo != null) {
+                Random random =new  Random();
+                int randid= random.nextInt(4800)+1;
+                Uagent uagent =new Uagent();
+                uagent.setId(randid);
+                uagent= uaInfoService.getUagentInfo(uagent);
+                if(uagent!=null){
+                    String timestamp = DateUtil.getCurrentTimestamp();
+                    cnetService.identifyCnet(appInfo.appId, appInfo.accessToken, uagent.getUainfo(), genIp(), timestamp);
+                    VisitUser user = new VisitUser();
+                    user.mothodName = "identifyCnet";
+                    visitUserService.updateVisitUserNumber(user);
+                    //jedis计数器增加
+                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.IDENTIFYCNET_KEY);
+                }
+            }
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
+        finally {
+            if (shardedJedis != null) {
+                jedisClient.repleaseClient(shardedJedis);
             }
         }
     }

@@ -7,10 +7,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import redis.clients.jedis.ShardedJedis;
+
+import com.quartz.monitor.common.RedisConstant;
 import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
 import com.quartz.monitor.entity.VisitUser;
 import com.quartz.monitor.interfaces.ContentSeriveImpl;
+import com.quartz.monitor.jedis.JedisClient;
 import com.quartz.monitor.service.AppInfoService;
 import com.quartz.monitor.service.VisitUserService;
 import com.quartz.monitor.util.ReadAppInfoUtil;
@@ -22,7 +26,8 @@ public class GetChannelsTimer {
     private AppInfoService appInfoService;
     @Autowired
     private VisitUserService visitUserService;
-
+    @Autowired
+    private JedisClient jedisClient;
     // 电信api接口
     private static ContentSeriveImpl contentService = new ContentSeriveImpl();
     private static Logger log = Logger.getLogger(GetChannelsTimer.class);
@@ -30,14 +35,29 @@ public class GetChannelsTimer {
 
     public void executeChannels() {
         log.info("start GetChannels ...");
-        ReadAppInfoUtil util = new ReadAppInfoUtil();
-        List<AppInfo> list = util.readAppInfoFile();
-        AppInfo appInfo = util.getAppInfo(list);
-        if (appInfo != null) {
-            contentService.getChannels(appInfo.appId, appInfo.accessToken);
-            VisitUser user = new VisitUser();
-            user.mothodName = "getChannels";
-            visitUserService.updateVisitUserNumber(user);
+        
+        
+        ShardedJedis shardedJedis = jedisClient.getShardedJedis();
+        try {
+            ReadAppInfoUtil util = new ReadAppInfoUtil();
+            List<AppInfo> list = util.readAppInfoFile();
+            AppInfo appInfo = util.getAppInfo(list);
+            if (appInfo != null) {
+                contentService.getChannels(appInfo.appId, appInfo.accessToken);
+                VisitUser user = new VisitUser();
+                user.mothodName = "getChannels";
+                visitUserService.updateVisitUserNumber(user);
+                //jedis计数器增加
+                jedisClient.incrTimeCount(shardedJedis, RedisConstant.CHANNELS_KEY);
+            }
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
+        finally {
+            if (shardedJedis != null) {
+                jedisClient.repleaseClient(shardedJedis);
+            }
         }
     }
 
