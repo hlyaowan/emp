@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<bean id="jedisClient" class="com.quartz.monitor.jedis.JedisClient">
+		<property name="redisManager" ref="jedisManager"></property>
+	</bean>
+	<bean id="jedisManager" class="com.quartz.monitor.jedis.DefaultJedisManager"
+		destroy-method="destory" init-method="init">
+		<property name="cluster" ref="cluster" />
+		<property name="maxActive" value="${redis.pool.maxActive}" />
+		<property name="maxIdle" value="${redis.pool.maxIdle}" />
+		<!-- <property name="minIdle" value="${redis.pool.minIdle}" /> -->
+		<property name="maxWait" value="${redis.pool.maxWait}" />
+		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+		<property name="testOnReturn" value="${redis.pool.testOnReturn}" />
+		<!-- <property name="timeout" value="5000" /> -->
+	</bean>
+	<bean id="cluster" class="com.quartz.monitor.jedis.RedisCluster">
+		<property name="serverList" ref="serverList" />
+	</bean>
+	<util:list id="serverList">
+		<bean class="com.quartz.monitor.jedis.RedisServer">
+			<property name="host" value="${redis.master.host1}" />
+			<property name="port" value="${redis.master.port1}" />
+		</bean>
+	</util:list>
+</beans>
