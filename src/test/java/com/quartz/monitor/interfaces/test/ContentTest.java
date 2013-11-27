@@ -29,8 +29,8 @@ public class ContentTest {
 	@Test
 	public void getCatalogContent(){
 		String catalogID="1000002629495";
-		int start =2;
-		int count =10;
+		int start =1;
+		int count =2;
 		String catalogcontent = service.getCatalogContent(AppinfoConstant.APPID, AppinfoConstant.ACCESSTOKEN, catalogID, start, count);
 		System.out.print(catalogcontent);
 	}
