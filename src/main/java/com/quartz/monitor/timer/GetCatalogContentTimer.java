@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import redis.clients.jedis.ShardedJedis;
 
+import com.quartz.monitor.common.ContentConstant;
 import com.quartz.monitor.common.RedisConstant;
 import com.quartz.monitor.common.ThreadConstant;
 import com.quartz.monitor.entity.AppInfo;
@@ -52,13 +53,16 @@ public class GetCatalogContentTimer {
                 List<CatalogInfo> catalogInfos =readCatalogListUtil.readAppInfoFile();
                 CatalogInfo catalogInfo =readCatalogListUtil.getCatalogInfo(catalogInfos);
                 if(catalogInfo!=null){
-                    contentService.getCatalogContent(appInfo.appId, appInfo.accessToken, catalogInfo.catalogId, catalogInfo.start, catalogInfo.count);
-                    VisitUser user =new  VisitUser();
-                    user.mothodName="getCatalogContent";
-                    visitUserService.updateVisitUserNumber(user);
-                    //jedis计数器增加
+                    String result=contentService.getCatalogContent(appInfo.appId, appInfo.accessToken, catalogInfo.catalogId, ContentConstant.START_PAGE, ContentConstant.COUNT_PAGE);
+                    if(result!=null){
+                        VisitUser user =new  VisitUser();
+                        user.mothodName="getCatalogContent";
+                        visitUserService.updateVisitUserNumber(user);
+                        //jedis计数器增加
+                        
+                        jedisClient.incrTimeCount(shardedJedis, RedisConstant.CATALOGCONTENT_KEY);
+                    }
                     
-                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.CATALOGCONTENT_KEY);
                 }
             }
         }

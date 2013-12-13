@@ -8,5 +8,8 @@ public class ContentConstant {
     public final static String GET_CONTENTINFO_URL    = "http://api.189.cn/yd/read/book/getContentInfo";
     public final static String GET_AUTHORINFO_URL     = "http://api.189.cn/yd/read/book/getAuthorInfo";
     public final static String GET_CHAPTERLIST_URL    = "http://api.189.cn/yd/read/book/getChapterList";
+    
+    public final static int START_PAGE     = 1;
+    public final static int COUNT_PAGE    = 10;
 
 }

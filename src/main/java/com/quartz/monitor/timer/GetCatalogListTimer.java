@@ -45,12 +45,15 @@ public class GetCatalogListTimer {
             if (appInfo != null) {
                 Random random = new Random();
                 int channelID = random.nextInt(4) + 1;
-                contentService.getCatalogList(appInfo.appId, appInfo.accessToken, String.valueOf(channelID));
-                VisitUser user = new VisitUser();
-                user.mothodName = "getCatalogList";
-                visitUserService.updateVisitUserNumber(user);
-                // jedis计数器增加
-                jedisClient.incrTimeCount(shardedJedis, RedisConstant.CATALOGLIST_KEY);
+                String result=contentService.getCatalogList(appInfo.appId, appInfo.accessToken, String.valueOf(channelID));
+                if(result!=null){
+                    VisitUser user = new VisitUser();
+                    user.mothodName = "getCatalogList";
+                    visitUserService.updateVisitUserNumber(user);
+                    // jedis计数器增加
+                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.CATALOGLIST_KEY);
+                }
+                
             }
         }
         catch (Exception e) {

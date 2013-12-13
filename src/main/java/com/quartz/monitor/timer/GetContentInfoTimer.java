@@ -39,28 +39,32 @@ public class GetContentInfoTimer {
     @Autowired
     private JedisClient jedisClient;
 
+
     public void executeContentInfo() {
         log.info("start GetContentInfoTimer ...");
-        
-        
+
         ShardedJedis shardedJedis = jedisClient.getShardedJedis();
         try {
             ReadAppInfoUtil util = new ReadAppInfoUtil();
             List<AppInfo> list = util.readAppInfoFile();
             AppInfo appInfo = util.getAppInfo(list);
             if (appInfo != null) {
-                int i=53850;
-                int j=169727;
-                ContentInfo content =new ContentInfo();
-                content.id =Tools.getRandom(i,j);
+                int i = 53850;
+                int j = 169727;
+                ContentInfo content = new ContentInfo();
+                content.id = Tools.getRandom(i, j);
                 ContentInfo contentInfo = contentInfoService.getContentInfo(content);
                 if (contentInfo != null) {
-                    contentService.getContentInfo(appInfo.appId, appInfo.accessToken, contentInfo.contentId);
-                    VisitUser user = new VisitUser();
-                    user.mothodName = "getContentInfo";
-                    visitUserService.updateVisitUserNumber(user);
-                    //jedis计数器增加
-                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.CONTENTINFO_KEY);
+                    String result =
+                            contentService.getContentInfo(appInfo.appId, appInfo.accessToken, contentInfo.contentId);
+                    if (result != null) {
+                        VisitUser user = new VisitUser();
+                        user.mothodName = "getContentInfo";
+                        visitUserService.updateVisitUserNumber(user);
+                        // jedis计数器增加
+                        jedisClient.incrTimeCount(shardedJedis, RedisConstant.CONTENTINFO_KEY);
+                    }
+
                 }
 
             }
@@ -90,18 +94,18 @@ public class GetContentInfoTimer {
     /***
      * 
      * @author hlyaowan
-     *
+     * 
      */
     class ContentThread extends Thread {
         public void run() {
             executeContentInfo();
             try {
-                Random random =new Random();
-                int value =random.nextInt(ThreadConstant.SLEEPTIME)+1;
+                Random random = new Random();
+                int value = random.nextInt(ThreadConstant.SLEEPTIME) + 1;
                 Thread.sleep(value);
             }
             catch (InterruptedException e) {
-                log.error("thread error:"+e);
+                log.error("thread error:" + e);
             }
         }
     }

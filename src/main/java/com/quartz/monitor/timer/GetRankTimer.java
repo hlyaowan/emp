@@ -36,10 +36,10 @@ public class GetRankTimer {
     @Autowired
     private JedisClient jedisClient;
 
+
     public void executeRank() {
         log.info("start GetRankTimer ...");
-        
-        
+
         ShardedJedis shardedJedis = jedisClient.getShardedJedis();
         try {
             ReadAppInfoUtil util = new ReadAppInfoUtil();
@@ -48,13 +48,17 @@ public class GetRankTimer {
             if (appInfo != null) {
                 RankInfo rankInfo = rankInfoService.getRankInfo(null);
                 if (rankInfo != null) {
-                    rankService.getRank(appInfo.appId, appInfo.accessToken, rankInfo.contentType, rankInfo.rankType,
-                        rankInfo.rankTime, rankInfo.start, rankInfo.count);
-                    VisitUser user = new VisitUser();
-                    user.mothodName = "getRank";
-                    visitUserService.updateVisitUserNumber(user);
-                    //jedis计数器增加
-                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.RANK_KEY);
+                    String result =
+                            rankService.getRank(appInfo.appId, appInfo.accessToken, rankInfo.contentType,
+                                rankInfo.rankType, rankInfo.rankTime, rankInfo.start, rankInfo.count);
+                    if (result != null) {
+                        VisitUser user = new VisitUser();
+                        user.mothodName = "getRank";
+                        visitUserService.updateVisitUserNumber(user);
+                        // jedis计数器增加
+                        jedisClient.incrTimeCount(shardedJedis, RedisConstant.RANK_KEY);
+                    }
+                    
                 }
             }
         }
@@ -70,7 +74,7 @@ public class GetRankTimer {
 
 
     /***
-     * 启动线程8.6W /2=4.3W  每天8.64w秒 ，每s约0.5次
+     * 启动线程8.6W /2=4.3W 每天8.64w秒 ，每s约0.5次
      */
     public void executeRankTask() {
         RankThread[] threads = new RankThread[ThreadConstant.RANK_THREAD];
@@ -84,12 +88,12 @@ public class GetRankTimer {
         public void run() {
             executeRank();
             try {
-                Random random =new Random();
-                int value =random.nextInt(ThreadConstant.SLEEPTIME)+1;
+                Random random = new Random();
+                int value = random.nextInt(ThreadConstant.SLEEPTIME) + 1;
                 Thread.sleep(value);
             }
             catch (InterruptedException e) {
-                log.error("thread error:"+e);
+                log.error("thread error:" + e);
             }
         }
     }

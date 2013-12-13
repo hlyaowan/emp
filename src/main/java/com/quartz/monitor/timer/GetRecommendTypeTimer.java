@@ -48,12 +48,15 @@ public class GetRecommendTypeTimer {
             List<AppInfo> list = util.readAppInfoFile();
             AppInfo appInfo = util.getAppInfo(list);
             if (appInfo != null) {
-                recommendService.getRecommendType(appInfo.appId, appInfo.accessToken);
-                VisitUser user = new VisitUser();
-                user.mothodName = "getRecommendType";
-                visitUserService.updateVisitUserNumber(user);
-                //jedis计数器增加
-                jedisClient.incrTimeCount(shardedJedis, RedisConstant.RECOMMENDTYPE_KEY);
+                String result=recommendService.getRecommendType(appInfo.appId, appInfo.accessToken);
+                if(result!=null){
+                    VisitUser user = new VisitUser();
+                    user.mothodName = "getRecommendType";
+                    visitUserService.updateVisitUserNumber(user);
+                    // jedis计数器增加
+                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.RECOMMENDTYPE_KEY);
+                }
+                
             }
         }
         catch (Exception e) {

@@ -86,6 +86,8 @@ public class QuartzClock {
             int catalogValue = Integer.parseInt(catalog);
             if(catalogValue<ThreadConstant.CATALOGCONTENT_MAX_LIMITED){
                 getCatalogContentTimer.executeCatalogContentTask();
+            }else{
+                LOG.info("=====================executeCatalogContentTask complete======================");
             }
         }
         catch (Exception e) {
@@ -109,6 +111,8 @@ public class QuartzClock {
             int catalogValue = Integer.parseInt(catalogListStr);
             if(catalogValue<ThreadConstant.CATALOGLIST_MAX_LIMITED){
                 getCatalogListTimer.executeCatalogListTask();
+            }else{
+                LOG.info("=====================executeCatalogListTask complete======================");
             }
         }
         catch (Exception e) {
@@ -132,6 +136,8 @@ public class QuartzClock {
             int channelValue = Integer.parseInt(channelStr);
             if(channelValue<ThreadConstant.CHANNELS_MAX_LIMITED){
                 getChannelsTimer.executeChannelsTask();
+            }else{
+                LOG.info("=====================executeChannelsTask complete======================");
             }
         }
         catch (Exception e) {
@@ -155,6 +161,8 @@ public class QuartzClock {
             int chapterValue = Integer.parseInt(chapterlStr);
             if(chapterValue<ThreadConstant.CHAPTERLIST_MAX_LIMITED){
                 getChapterListTimer.executeChapterListTask();
+            }else{
+                LOG.info("=====================executeChapterListTask complete======================");
             }
         }
         catch (Exception e) {
@@ -178,6 +186,8 @@ public class QuartzClock {
             int contentValue = Integer.parseInt(contentStr);
             if(contentValue<ThreadConstant.CONTENTINFO_MAX_LIMITED){
                 getContentInfoTimer.executeContentInfoTask();
+            }else{
+                LOG.info("=====================executeContentInfoTask complete======================");
             }
         }
         catch (Exception e) {
@@ -201,6 +211,8 @@ public class QuartzClock {
             int hotValue = Integer.parseInt(hotStr);
             if(hotValue<ThreadConstant.HOTRECOMMEND_MAX_LIMITED){
                 getHotRecommendTimer.executeGetHotRecommendTask();
+            }else{
+                LOG.info("=====================executeGetHotRecommendTask complete======================");
             }
         }
         catch (Exception e) {
@@ -224,6 +236,8 @@ public class QuartzClock {
             int rankValue = Integer.parseInt(rankStr);
             if(rankValue<ThreadConstant.RANK_MAX_LIMITED){
                 getRankTimer.executeRankTask();
+            }else{
+                LOG.info("=====================executeRankTask complete======================");
             }
         }
         catch (Exception e) {
@@ -247,6 +261,8 @@ public class QuartzClock {
             int rankValue = Integer.parseInt(rankStr);
             if(rankValue<ThreadConstant.RANK_MAX_LIMITED){
                 getRankTypeTimer.executeRankTypeTask();
+            }else{
+                LOG.info("=====================executeRankTypeTask complete======================");
             }
         }
         catch (Exception e) {
@@ -270,6 +286,8 @@ public class QuartzClock {
             int recommendValue = Integer.parseInt(recommendStr);
             if(recommendValue<ThreadConstant.RECOMMEND_MAX_LIMITED){
                 getRecommendTimer.executeGetRecommendTask();
+            }else{
+                LOG.info("=====================executeGetRecommendTask complete======================");
             }
         }
         catch (Exception e) {
@@ -293,6 +311,8 @@ public class QuartzClock {
             int recommendValue = Integer.parseInt(recommendStr);
             if(recommendValue<ThreadConstant.RECOMMENDTYPE_MAX_LIMITED){
                 getRecommendTypeTimer.executeGetRecommendTypeTask();
+            }else{
+                LOG.info("=====================executeGetRecommendTypeTask complete======================");
             }
         }
         catch (Exception e) {
@@ -317,6 +337,8 @@ public class QuartzClock {
             int netValue = Integer.parseInt( netStr);
             if(netValue<ThreadConstant.IDENTIFYCNET_MAX_LIMITED){
                 identifyCnetTimer.executeIdentifyCnetTask();
+            }else{
+                LOG.info("=====================executeIdentifyCnetTask complete======================");
             }
         }
         catch (Exception e) {

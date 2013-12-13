@@ -37,6 +37,7 @@ public class IdentifyCnetTimer {
     @Autowired
     private JedisClient jedisClient;
 
+
     public void executeIdentifyCnet() {
         log.info("start IdentifyCnetTimer ...");
         ShardedJedis shardedJedis = jedisClient.getShardedJedis();
@@ -45,19 +46,24 @@ public class IdentifyCnetTimer {
             List<AppInfo> list = util.readAppInfoFile();
             AppInfo appInfo = util.getAppInfo(list);
             if (appInfo != null) {
-                Random random =new  Random();
-                int randid= random.nextInt(4800)+1;
-                Uagent uagent =new Uagent();
+                Random random = new Random();
+                int randid = random.nextInt(4800) + 1;
+                Uagent uagent = new Uagent();
                 uagent.setId(randid);
-                uagent= uaInfoService.getUagentInfo(uagent);
-                if(uagent!=null){
+                uagent = uaInfoService.getUagentInfo(uagent);
+                if (uagent != null) {
                     String timestamp = DateUtil.getCurrentTimestamp();
-                    cnetService.identifyCnet(appInfo.appId, appInfo.accessToken, uagent.getUainfo(), genIp(), timestamp);
-                    VisitUser user = new VisitUser();
-                    user.mothodName = "identifyCnet";
-                    visitUserService.updateVisitUserNumber(user);
-                    //jedis计数器增加
-                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.IDENTIFYCNET_KEY);
+                    String result =
+                            cnetService.identifyCnet(appInfo.appId, appInfo.accessToken, uagent.getUainfo(), genIp(),
+                                timestamp);
+                    if (result != null) {
+                        VisitUser user = new VisitUser();
+                        user.mothodName = "identifyCnet";
+                        visitUserService.updateVisitUserNumber(user);
+                        // jedis计数器增加
+                        jedisClient.incrTimeCount(shardedJedis, RedisConstant.IDENTIFYCNET_KEY);
+                    }
+
                 }
             }
         }
@@ -73,7 +79,7 @@ public class IdentifyCnetTimer {
 
 
     /***
-     * 启动线程 74.3W  每天86400S。每s 9次
+     * 启动线程 74.3W 每天86400S。每s 9次
      */
     public void executeIdentifyCnetTask() {
         IdentifyCnetThread[] threads = new IdentifyCnetThread[ThreadConstant.IDENTIFYCNET_THREAD];
@@ -87,12 +93,12 @@ public class IdentifyCnetTimer {
         public void run() {
             executeIdentifyCnet();
             try {
-                Random random =new Random();
-                int value =random.nextInt(ThreadConstant.SLEEPTIME)+1;
+                Random random = new Random();
+                int value = random.nextInt(ThreadConstant.SLEEPTIME) + 1;
                 Thread.sleep(value);
             }
             catch (InterruptedException e) {
-                log.error("thread error:"+e);
+                log.error("thread error:" + e);
             }
         }
     }

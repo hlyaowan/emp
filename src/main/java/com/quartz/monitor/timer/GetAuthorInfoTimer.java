@@ -48,14 +48,16 @@ public class GetAuthorInfoTimer {
             if (appInfo != null) {
                 AuthorInfo authorInfo = authorInfoService.getAuthorInfo(null);
                 if (authorInfo != null) {
-                    contentService.getAuthorInfo(appInfo.appId, appInfo.accessToken, authorInfo.authorId, authorInfo.start,
+                    String result=contentService.getAuthorInfo(appInfo.appId, appInfo.accessToken, authorInfo.authorId, authorInfo.start,
                         authorInfo.count);
-                    // 统计发送的接口次数
-                    VisitUser user = new VisitUser();
-                    user.mothodName = "getAuthorInfo";
-                    visitUserService.updateVisitUserNumber(user);
-                    //jedis计数器增加
-                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.AUTHORINFO_KEY);
+                    if(result!=null){
+                        // 统计发送的接口次数
+                        VisitUser user = new VisitUser();
+                        user.mothodName = "getAuthorInfo";
+                        visitUserService.updateVisitUserNumber(user);
+                        //jedis计数器增加
+                        jedisClient.incrTimeCount(shardedJedis, RedisConstant.AUTHORINFO_KEY); 
+                    }
                 }
             }
         }

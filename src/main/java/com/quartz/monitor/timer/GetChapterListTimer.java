@@ -51,13 +51,16 @@ public class GetChapterListTimer {
                 content.id =Tools.getRandom(i,j);
                 ContentInfo contentInfo = contentInfoService.getContentInfo(content);
                 if (contentInfo != null) {
-                    contentService.getChapterList(appInfo.appId, appInfo.accessToken, contentInfo.contentId,
+                    String result=contentService.getChapterList(appInfo.appId, appInfo.accessToken, contentInfo.contentId,
                         contentInfo.start, contentInfo.count);
-                    VisitUser user = new VisitUser();
+                    if(result!=null){
+                         VisitUser user = new VisitUser();
                     user.mothodName = "getChapterList";
                     visitUserService.updateVisitUserNumber(user);
                     //jedis计数器增加
                     jedisClient.incrTimeCount(shardedJedis, RedisConstant.CHAPTERLIST_KEY);
+                    }
+                   
                 }
             }
         }

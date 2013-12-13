@@ -41,11 +41,14 @@ public class GetRankConfTimer {
         if (appInfo != null) {
             RankInfo rankInfo = rankInfoService.getRankInfo(null);
             if (rankInfo != null) {
-                rankService.getRankConf(appInfo.appId, appInfo.accessToken, rankInfo.contentType, null,
+                String result= rankService.getRankConf(appInfo.appId, appInfo.accessToken, rankInfo.contentType, null,
                     rankInfo.channelType, rankInfo.rankType, rankInfo.rankType, rankInfo.start, rankInfo.count);
-                VisitUser user = new VisitUser();
-                user.mothodName = "getRankConf";
-                visitUserService.updateVisitUserNumber(user);
+                if(result!=null){
+                    VisitUser user = new VisitUser();
+                    user.mothodName = "getRankConf";
+                    visitUserService.updateVisitUserNumber(user);
+                }
+                
             }
         }
     }

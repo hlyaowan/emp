@@ -44,12 +44,15 @@ public class GetRecommendConfTimer {
         if (appInfo != null) {
             RecommendInfo recommendInfo = recommendInfoService.getRecommendInfo(null);
             if (recommendInfo != null) {
-                recommendService.getRecommendConf(appInfo.appId, appInfo.accessToken, recommendInfo.contentType, null,
+                String result=recommendService.getRecommendConf(appInfo.appId, appInfo.accessToken, recommendInfo.contentType, null,
                     recommendInfo.channelType, recommendInfo.timeType, recommendInfo.recommendType,
                     recommendInfo.start, recommendInfo.count);
-                VisitUser user = new VisitUser();
-                user.mothodName = "getRecommendConf";
-                visitUserService.updateVisitUserNumber(user);
+                if(result!=null){
+                    VisitUser user = new VisitUser();
+                    user.mothodName = "getRecommendConf";
+                    visitUserService.updateVisitUserNumber(user);
+                }
+              
             }
         }
     }

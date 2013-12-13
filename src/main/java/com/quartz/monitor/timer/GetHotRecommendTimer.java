@@ -46,12 +46,15 @@ public class GetHotRecommendTimer {
             List<AppInfo> list = util.readAppInfoFile();
             AppInfo appInfo = util.getAppInfo(list);
             if (appInfo != null) {
-                recommendService.getHotRecommend(appInfo.appId, appInfo.accessToken);
-                VisitUser user = new VisitUser();
-                user.mothodName = "getHotRecommend";
-                visitUserService.updateVisitUserNumber(user);
-                //jedis计数器增加
-                jedisClient.incrTimeCount(shardedJedis, RedisConstant.HOTRECOMMEND_KEY);
+                String result=recommendService.getHotRecommend(appInfo.appId, appInfo.accessToken);
+                if(result!=null){
+                    VisitUser user = new VisitUser();
+                    user.mothodName = "getHotRecommend";
+                    visitUserService.updateVisitUserNumber(user);
+                    // jedis计数器增加
+                    jedisClient.incrTimeCount(shardedJedis, RedisConstant.HOTRECOMMEND_KEY);
+                }
+                
             }
         }
         catch (Exception e) {
