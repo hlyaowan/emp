@@ -135,7 +135,7 @@
 			<ref bean="SpringExecuteAuthorInfoTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 
@@ -144,7 +144,7 @@
 			<ref bean="SpringExecuteCatalogContentTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 	
@@ -153,7 +153,7 @@
 			<ref bean="SpringExecuteCatalogListTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 
@@ -162,7 +162,7 @@
 			<ref bean="SpringExecuteChannelsTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 	
@@ -171,7 +171,7 @@
 			<ref bean="SpringExecuteChapterListTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 
@@ -180,7 +180,7 @@
 			<ref bean="SpringExecuteContentInfoTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 	
@@ -189,7 +189,7 @@
 			<ref bean="SpringExecuteGetHotRecommendTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 
@@ -198,7 +198,7 @@
 			<ref bean="SpringExecuteRankTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 	
@@ -207,7 +207,7 @@
 			<ref bean="SpringExecuteRankTypeTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 
@@ -216,7 +216,7 @@
 			<ref bean="SpringExecuteGetRecommendTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 	
@@ -225,7 +225,7 @@
 			<ref bean="SpringExecuteGetRecommendTypeTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 3-23 * * ?</value>
 		</property>
 	</bean>
 
@@ -234,7 +234,7 @@
 			<ref bean="SpringExecuteIdentifyCnetTask"></ref>
 		</property>
 		<property name="cronExpression">
-			<value>0/2 * 4-23 * * ?</value>
+			<value>0/2 * 0-23 * * ?</value>
 		</property>
 	</bean>
 	
