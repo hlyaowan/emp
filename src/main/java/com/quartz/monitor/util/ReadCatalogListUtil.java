@@ -33,9 +33,9 @@ public class ReadCatalogListUtil {
             for (int i = 0; i < eleList.size(); i++) {
                 Element elemodel = (Element) eleList.get(i);
                 CatalogInfo model = new CatalogInfo();
-                model.setCatalogId(elemodel.getChildText("channelId"));
-                model.setCatalogName(elemodel.getChildText("catalogId"));
-                model.setChannelId(elemodel.getChildText("catalogName"));
+                model.setCatalogId(elemodel.getChildText("catalogId"));
+                model.setCatalogName(elemodel.getChildText("catalogName"));
+                model.setChannelId(elemodel.getChildText("channelId"));
                 list.add(model);
             }
             return list;
