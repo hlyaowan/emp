@@ -38,6 +38,7 @@ public class ReadAppInfoUtil {
                 model.setAccessToken(elemodel.getChildText("accessToken"));
                 list.add(model);
             }
+            System.out.println("list:"+list.size());
             return list;
         }
         catch (Exception e) {
@@ -99,9 +100,9 @@ public class ReadAppInfoUtil {
     
     public static void main(String[] args) {
         ReadAppInfoUtil readAppInfoUtil =new ReadAppInfoUtil();
-        for (int i = 0; i < 50; i++) {
-            System.out.println(readAppInfoUtil.getAppInfo(readAppInfoUtil.readAppInfoFile()).appId);
-        }
+//        for (int i = 0; i < 50; i++) {
+            System.out.println(readAppInfoUtil.readAppInfoFile());
+//        }
        
     }
 }
